@@ -34,4 +34,32 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
 
         return $this->router->get($uri, $action);
     }
+
+    /**
+     * Add the create method route with a custom path if specified.
+     */
+    protected function addSingletonCreate($name, $controller, $options)
+    {
+        $uri = $this->getResourceUri($name).'/'.($options['paths']['create'] ?? static::$verbs['create']);
+
+        unset($options['missing']);
+
+        $action = $this->getResourceAction($name, $controller, 'create', $options);
+
+        return $this->router->get($uri, $action);
+    }
+
+    /**
+     * Add the edit method route with a custom path if specified.
+     */
+    protected function addSingletonEdit($name, $controller, $options)
+    {
+        $name = $this->getShallowName($name, $options);
+
+        $uri = $this->getResourceUri($name).'/{'.$base.'}/'.($options['paths']['edit'] ?? static::$verbs['edit']);
+
+        $action = $this->getResourceAction($name, $controller, 'edit', $options);
+
+        return $this->router->get($uri, $action);
+    }
 }
