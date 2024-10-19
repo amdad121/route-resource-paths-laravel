@@ -1,9 +1,9 @@
 {
     "name": "amdadulhaq/route-resource-paths-laravel",
-    "description": "A Laravel package that provides a custom resource registrar with custom paths.",
+    "description": "A Laravel package that provides a resource paths registrar.",
     "authors": [
         {
-            "name": "amdad121",
+            "name": "Amdadul Haq",
             "email": "amdadulhaq781@gmail.com"
         }
     ],

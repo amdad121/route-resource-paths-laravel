@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AmdadulHaq\RouteResourcePathsLaravel;
 
 use Illuminate\Routing\ResourceRegistrar as BaseResourceRegistrar;
@@ -21,10 +23,8 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
      */
     protected static $globalSingletonPaths = [];
 
-     /**
+    /**
      * Set global paths for resource routes.
-     *
-     * @param array $paths
      */
     public static function setGlobalPaths(array $paths): void
     {
@@ -33,32 +33,22 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
 
     /**
      * Set global paths for singleton resource routes.
-     *
-     * @param array $paths
      */
     public static function setGlobalSingletonPaths(array $paths): void
     {
         self::$globalSingletonPaths = $paths;
     }
 
-     /**
+    /**
      * Get the path for a specific resource action, considering both global and specific paths.
-     *
-     * @param string $action
-     * @param array $options
-     * @return string
      */
     protected function getResourcePath(string $action, array $options): string
     {
         return $options['paths'][$action] ?? self::$globalPaths[$action] ?? static::$verbs[$action];
     }
 
-     /**
+    /**
      * Get the path for a specific singleton resource action, considering both global and specific paths.
-     *
-     * @param string $action
-     * @param array $options
-     * @return string
      */
     protected function getSingletonResourcePath(string $action, array $options): string
     {
@@ -72,7 +62,6 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
      * @param  string  $base
      * @param  string  $controller
      * @param  array  $options
-     * @return \Illuminate\Routing\Route
      */
     protected function addResourceCreate($name, $base, $controller, $options): Route
     {
@@ -92,7 +81,6 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
      * @param  string  $base
      * @param  string  $controller
      * @param  array  $options
-     * @return \Illuminate\Routing\Route
      */
     protected function addResourceEdit($name, $base, $controller, $options): Route
     {
@@ -115,7 +103,7 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
      */
     protected function addSingletonCreate($name, $controller, $options)
     {
-        $uri = $this->getResourceUri($name) . '/' . $this->getSingletonResourcePath('create', $options);
+        $uri = $this->getResourceUri($name).'/'.$this->getSingletonResourcePath('create', $options);
 
         unset($options['missing']);
 
@@ -136,7 +124,7 @@ class PathsResourceRegistrar extends BaseResourceRegistrar
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name) . '/' . $this->getSingletonResourcePath('edit', $options);
+        $uri = $this->getResourceUri($name).'/'.$this->getSingletonResourcePath('edit', $options);
 
         $action = $this->getResourceAction($name, $controller, 'edit', $options);
 

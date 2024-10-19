@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AmdadulHaq\RouteResourcePathsLaravel;
 
 use Illuminate\Routing\PendingResourceRegistration;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class RouteResourcesPathsServiceProvider extends ServiceProvider
@@ -48,7 +51,8 @@ class RouteResourcesPathsServiceProvider extends ServiceProvider
             }
 
             // Add a method to apply paths to all resources
-            return new class($registrations) {
+            return new class($registrations)
+            {
                 protected $registrations;
 
                 public function __construct(array $registrations)
