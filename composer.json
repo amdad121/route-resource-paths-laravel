@@ -20,6 +20,9 @@
             "AmdadulHaq\\RouteResourcePathsLaravel\\": "src/"
         }
     },
+    "scripts": {
+        "format": "vendor/bin/pint"
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -27,5 +30,6 @@
             ]
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
