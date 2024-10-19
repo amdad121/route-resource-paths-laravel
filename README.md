@@ -1,9 +1,9 @@
 # Route Resource Paths for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/amdad121/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdad121/route-resource-paths-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/amdad121/route-resource-paths-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/amdad121/route-resource-paths-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/amdad121/route-resource-paths-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/amdad121/route-resource-paths-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/amdad121/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdad121/route-resource-paths-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/amdadulhaq/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdadulhaq/route-resource-paths-laravel)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/amdadulhaq/route-resource-paths-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/amdadulhaq/route-resource-paths-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/amdadulhaq/route-resource-paths-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/amdadulhaq/route-resource-paths-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/amdadulhaq/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdadulhaq/route-resource-paths-laravel)
 
 A Laravel package that provides a custom resource registrar with support for custom paths.
 
@@ -20,7 +20,7 @@ Works seamlessly with both Route::resource() and Route::resources() methods.
 You can install the package via composer:
 
 ```bash
-composer require amdad121/route-resource-paths-laravel
+composer require amdadulhaq/route-resource-paths-laravel
 ```
 
 Once installed, the service provider will be registered automatically by Laravel.
