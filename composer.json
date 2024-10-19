@@ -21,7 +21,7 @@
         }
     },
     "scripts": {
-        "format": "vendor/bin/pint"
+        "lint": "vendor/bin/pint"
     },
     "extra": {
         "laravel": {
