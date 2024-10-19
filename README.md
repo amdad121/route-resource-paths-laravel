@@ -1,11 +1,7 @@
-# Route Resource Paths for Laravel
+# Route Resource Paths Laravel Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/amdadulhaq/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdadulhaq/route-resource-paths-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/amdadulhaq/route-resource-paths-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/amdadulhaq/route-resource-paths-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/amdadulhaq/route-resource-paths-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/amdadulhaq/route-resource-paths-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/amdadulhaq/route-resource-paths-laravel.svg?style=flat-square)](https://packagist.org/packages/amdadulhaq/route-resource-paths-laravel)
-
-A Laravel package that provides a custom resource registrar with support for custom paths.
 
 This Laravel package allows you to define custom paths for create and edit routes in resource controllers. It extends the functionality of Laravel's resource routing by providing macros to set these paths globally or for specific resources.
 
@@ -134,4 +130,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## Contributing
 
-If you find any issues or have suggestions for improvements, feel free to create a pull request or open an issue on the GitHub repository.
+If you find any issues or have suggestions for improvements, feel free to create a pull request or open an issue on the [GitHub repository](https://github.com/amdad121/route-resource-paths-laravel).
