@@ -29,5 +29,40 @@ class RouteResourcesPathsServiceProvider extends ServiceProvider
 
             return $this;
         });
+
+        // Add the macro to set global paths for all resource routes
+        Route::macro('resourcePaths', function (array $paths) {
+            PathsResourceRegistrar::setGlobalPaths($paths);
+        });
+
+        // Add the global method to set singleton resource paths
+        Route::macro('singletonPaths', function (array $paths) {
+            PathsResourceRegistrar::setGlobalSingletonPaths($paths);
+        });
+
+        // Add a macro to handle resources registration with global paths
+        Route::macro('resources', function (array $resources) {
+            $registrations = [];
+            foreach ($resources as $name => $controller) {
+                $registrations[] = $this->resource($name, $controller);
+            }
+
+            // Add a method to apply paths to all resources
+            return new class($registrations) {
+                protected $registrations;
+
+                public function __construct(array $registrations)
+                {
+                    $this->registrations = $registrations;
+                }
+
+                public function paths(array $paths)
+                {
+                    foreach ($this->registrations as $registration) {
+                        $registration->paths($paths);
+                    }
+                }
+            };
+        });
     }
 }
