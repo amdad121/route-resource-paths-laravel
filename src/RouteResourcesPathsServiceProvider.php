@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AmdadulHaq\RouteResourcePathsLaravel;
 
 use Illuminate\Routing\PendingResourceRegistration;
+use Illuminate\Routing\PendingSingletonResourceRegistration;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,13 @@ class RouteResourcesPathsServiceProvider extends ServiceProvider
 
         // Add the macro to PendingResourceRegistration to handle custom paths
         PendingResourceRegistration::macro('paths', function (array $paths) {
+            $this->options['paths'] = $paths;
+
+            return $this;
+        });
+
+        // Add the macro to PendingSingletonResourceRegistration to handle custom paths per singleton resource
+        PendingSingletonResourceRegistration::macro('paths', function (array $paths) {
             $this->options['paths'] = $paths;
 
             return $this;
