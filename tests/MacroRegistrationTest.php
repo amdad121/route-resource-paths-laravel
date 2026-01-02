@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use AmdadulHaq\RouteResourcePathsLaravel\PathsResourceRegistrar;
 
-beforeEach(function () {
+beforeEach(function (): void {
     PathsResourceRegistrar::setGlobalPaths([]);
     PathsResourceRegistrar::setGlobalSingletonPaths([]);
 });
 
-it('can set global paths for resources', function () {
+it('can set global paths for resources', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'add',
         'edit' => 'modify',
@@ -18,7 +18,7 @@ it('can set global paths for resources', function () {
     expect(PathsResourceRegistrar::class)->toBeString();
 });
 
-it('can set global paths for singleton resources', function () {
+it('can set global paths for singleton resources', function (): void {
     PathsResourceRegistrar::setGlobalSingletonPaths([
         'create' => 'setup',
         'edit' => 'update',
@@ -27,21 +27,21 @@ it('can set global paths for singleton resources', function () {
     expect(PathsResourceRegistrar::class)->toBeString();
 });
 
-it('can clear global paths for resources', function () {
+it('can clear global paths for resources', function (): void {
     PathsResourceRegistrar::setGlobalPaths(['create' => 'add']);
     PathsResourceRegistrar::setGlobalPaths([]);
 
     expect(true)->toBeTrue();
 });
 
-it('can clear global paths for singletons', function () {
+it('can clear global paths for singletons', function (): void {
     PathsResourceRegistrar::setGlobalSingletonPaths(['create' => 'setup']);
     PathsResourceRegistrar::setGlobalSingletonPaths([]);
 
     expect(true)->toBeTrue();
 });
 
-it('allows setting multiple paths at once', function () {
+it('allows setting multiple paths at once', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'add',
         'edit' => 'modify',
@@ -51,7 +51,7 @@ it('allows setting multiple paths at once', function () {
     expect(true)->toBeTrue();
 });
 
-it('singleton paths can be different from resource paths', function () {
+it('singleton paths can be different from resource paths', function (): void {
     PathsResourceRegistrar::setGlobalPaths(['create' => 'add']);
     PathsResourceRegistrar::setGlobalSingletonPaths(['create' => 'setup']);
 

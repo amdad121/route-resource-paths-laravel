@@ -5,12 +5,12 @@ declare(strict_types=1);
 use AmdadulHaq\RouteResourcePathsLaravel\PathsResourceRegistrar;
 use Illuminate\Support\Facades\Route;
 
-beforeEach(function () {
+beforeEach(function (): void {
     PathsResourceRegistrar::setGlobalPaths([]);
     PathsResourceRegistrar::setGlobalSingletonPaths([]);
 });
 
-it('can set global paths for resources', function () {
+it('can set global paths for resources', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'add',
         'edit' => 'modify',
@@ -19,7 +19,7 @@ it('can set global paths for resources', function () {
     expect(PathsResourceRegistrar::class)->toBeString();
 });
 
-it('can set global paths for singleton resources', function () {
+it('can set global paths for singleton resources', function (): void {
     PathsResourceRegistrar::setGlobalSingletonPaths([
         'create' => 'setup',
         'edit' => 'update',
@@ -28,7 +28,7 @@ it('can set global paths for singleton resources', function () {
     expect(PathsResourceRegistrar::class)->toBeString();
 });
 
-it('generates correct create path with global configuration', function () {
+it('generates correct create path with global configuration', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'add',
     ]);
@@ -37,15 +37,13 @@ it('generates correct create path with global configuration', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.create');
 
     expect($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/posts/add');
+        ->and($createRoute->uri)->toBe('posts/add');
 });
 
-it('generates correct edit path with global configuration', function () {
+it('generates correct edit path with global configuration', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'edit' => 'modify',
     ]);
@@ -54,15 +52,13 @@ it('generates correct edit path with global configuration', function () {
 
     $routes = Route::getRoutes();
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.edit');
 
     expect($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/posts/{post}/modify');
+        ->and($editRoute->uri)->toBe('posts/{post}/modify');
 });
 
-it('allows per-resource path customization', function () {
+it('allows per-resource path customization', function (): void {
     Route::resource('users', 'UserController')->paths([
         'create' => 'register',
         'edit' => 'update',
@@ -70,21 +66,17 @@ it('allows per-resource path customization', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'users.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'users.create');
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'users.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'users.edit');
 
     expect($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/users/register')
+        ->and($createRoute->uri)->toBe('users/register')
         ->and($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/users/{user}/update');
+        ->and($editRoute->uri)->toBe('users/{user}/update');
 });
 
-it('resource-specific paths override global paths', function () {
+it('resource-specific paths override global paths', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'add',
         'edit' => 'modify',
@@ -97,19 +89,15 @@ it('resource-specific paths override global paths', function () {
 
     $routes = Route::getRoutes();
 
-    $postsCreateRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.create';
-    });
+    $postsCreateRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.create');
 
-    $usersCreateRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'users.create';
-    });
+    $usersCreateRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'users.create');
 
-    expect($postsCreateRoute->uri)->toContain('/posts/add')
-        ->and($usersCreateRoute->uri)->toContain('/users/register');
+    expect($postsCreateRoute->uri)->toBe('posts/add')
+        ->and($usersCreateRoute->uri)->toBe('users/register');
 });
 
-it('generates correct singleton create path', function () {
+it('generates correct singleton create path', function (): void {
     PathsResourceRegistrar::setGlobalSingletonPaths([
         'create' => 'setup',
     ]);
@@ -118,15 +106,13 @@ it('generates correct singleton create path', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'profile.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'profile.create');
 
     expect($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/profile/setup');
+        ->and($createRoute->uri)->toBe('profile/setup');
 });
 
-it('generates correct singleton edit path', function () {
+it('generates correct singleton edit path', function (): void {
     PathsResourceRegistrar::setGlobalSingletonPaths([
         'edit' => 'update',
     ]);
@@ -135,15 +121,13 @@ it('generates correct singleton edit path', function () {
 
     $routes = Route::getRoutes();
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'profile.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'profile.edit');
 
     expect($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/profile/update');
+        ->and($editRoute->uri)->toBe('profile/update');
 });
 
-it('allows per-singleton path customization', function () {
+it('allows per-singleton path customization', function (): void {
     Route::singleton('settings', 'SettingsController')->creatable()->paths([
         'create' => 'initialize',
         'edit' => 'change',
@@ -151,38 +135,30 @@ it('allows per-singleton path customization', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'settings.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'settings.create');
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'settings.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'settings.edit');
 
     expect($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/settings/initialize')
+        ->and($createRoute->uri)->toBe('settings/initialize')
         ->and($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/settings/change');
+        ->and($editRoute->uri)->toBe('settings/change');
 });
 
-it('uses default paths when no custom paths are set', function () {
+it('uses default paths when no custom paths are set', function (): void {
     Route::resource('posts', 'PostController');
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.create');
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.edit');
 
-    expect($createRoute->uri)->toContain('/posts/create')
-        ->and($editRoute->uri)->toContain('/posts/{post}/edit');
+    expect($createRoute->uri)->toBe('posts/create')
+        ->and($editRoute->uri)->toBe('posts/{post}/edit');
 });
 
-it('preserves other resource actions', function () {
+it('preserves other resource actions', function (): void {
     Route::resource('posts', 'PostController')->paths([
         'create' => 'add',
         'edit' => 'modify',
@@ -190,24 +166,18 @@ it('preserves other resource actions', function () {
 
     $routes = Route::getRoutes();
 
-    $indexRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.index';
-    });
+    $indexRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.index');
 
-    $showRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.show';
-    });
+    $showRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.show');
 
-    $storeRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'posts.store';
-    });
+    $storeRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'posts.store');
 
     expect($indexRoute)->not->toBeNull()
         ->and($showRoute)->not->toBeNull()
         ->and($storeRoute)->not->toBeNull();
 });
 
-it('applies paths to multiple resources registered with resources macro', function () {
+it('applies paths to multiple resources registered with resources macro', function (): void {
     PathsResourceRegistrar::setGlobalPaths([
         'create' => 'new',
         'edit' => 'edit',
@@ -220,21 +190,17 @@ it('applies paths to multiple resources registered with resources macro', functi
 
     $routes = Route::getRoutes();
 
-    $articlesCreateRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'articles.create';
-    });
+    $articlesCreateRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'articles.create');
 
-    $pagesCreateRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'pages.create';
-    });
+    $pagesCreateRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'pages.create');
 
     expect($articlesCreateRoute)->not->toBeNull()
-        ->and($articlesCreateRoute->uri)->toContain('/articles/new')
+        ->and($articlesCreateRoute->uri)->toBe('articles/new')
         ->and($pagesCreateRoute)->not->toBeNull()
-        ->and($pagesCreateRoute->uri)->toContain('/pages/new');
+        ->and($pagesCreateRoute->uri)->toBe('pages/new');
 });
 
-it('can set both create and edit paths simultaneously', function () {
+it('can set both create and edit paths simultaneously', function (): void {
     Route::resource('products', 'ProductController')->paths([
         'create' => 'new-product',
         'edit' => 'edit-product',
@@ -242,40 +208,32 @@ it('can set both create and edit paths simultaneously', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'products.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'products.create');
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'products.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'products.edit');
 
-    expect($createRoute)->not->BeNull()
-        ->and($createRoute->uri)->toContain('/products/new-product')
+    expect($createRoute)->not->toBeNull()
+        ->and($createRoute->uri)->toBe('products/new-product')
         ->and($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/products/{product}/edit-product');
+        ->and($editRoute->uri)->toBe('products/{product}/edit-product');
 });
 
-it('handles empty paths array', function () {
+it('handles empty paths array', function (): void {
     Route::resource('comments', 'CommentController')->paths([]);
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'comments.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'comments.create');
 
-    $editRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'comments.edit';
-    });
+    $editRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'comments.edit');
 
     expect($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/comments/create')
+        ->and($createRoute->uri)->toBe('comments/create')
         ->and($editRoute)->not->toBeNull()
-        ->and($editRoute->uri)->toContain('/comments/{comment}/edit');
+        ->and($editRoute->uri)->toBe('comments/{comment}/edit');
 });
 
-it('works with resource namespacing', function () {
+it('works with resource namespacing', function (): void {
     Route::namespace('Admin')->resource('dashboard', 'DashboardController')->paths([
         'create' => 'new',
         'edit' => 'modify',
@@ -283,13 +241,11 @@ it('works with resource namespacing', function () {
 
     $routes = Route::getRoutes();
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return str_ends_with($route->getName(), 'dashboard.create');
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => str_ends_with((string) $route->getName(), 'dashboard.create'));
 
     expect($createRoute)->not->toBeNull();
 });
-it('supports partial resource actions with custom paths', function () {
+it('supports partial resource actions with custom paths', function (): void {
     Route::resource('books', 'BookController')
         ->only(['index', 'create', 'store'])
         ->paths([
@@ -298,20 +254,14 @@ it('supports partial resource actions with custom paths', function () {
 
     $routes = Route::getRoutes();
 
-    $indexRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'books.index';
-    });
+    $indexRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'books.index');
 
-    $createRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'books.create';
-    });
+    $createRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'books.create');
 
-    $showRoute = collect($routes)->first(function ($route) {
-        return $route->getName() === 'books.show';
-    });
+    $showRoute = collect($routes)->first(fn ($route): bool => $route->getName() === 'books.show');
 
     expect($indexRoute)->not->toBeNull()
         ->and($createRoute)->not->toBeNull()
-        ->and($createRoute->uri)->toContain('/books/add-book')
+        ->and($createRoute->uri)->toBe('books/add-book')
         ->and($showRoute)->toBeNull();
 });
